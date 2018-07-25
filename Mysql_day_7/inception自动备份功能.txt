@@ -1,0 +1,21 @@
+
+inception自动备份功能需要：
+
+1 mysql设置binlog
+# 修改mysql配置文件，/etc/my.cnf,需要如下配置
+
+[mysqld]
+log-bin = mysql-bin
+
+binlog_format = MIXED
+server-id = 1
+
+
+2 mysql被执行的表要有自增ID，示例如下
+
+CREATE TABLE IF NOT EXISTS `mytable1`(
+   `id` INT UNSIGNED AUTO_INCREMENT,
+   `myname` VARCHAR(10) NOT NULL,
+   PRIMARY KEY ( `id` )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
