@@ -80,7 +80,8 @@
                           {% elif sql.status == 1 %}
                               <td> <img src="/static/imgs/images/sqlmanage/canceled.png"> 已放弃</td>
                           {% elif sql.status == 2 %}
-                              <td> <img src="/static/imgs/images/sqlmanage/excutefail.png"> <span> 执行失败</span> <button class="btn btn-info btn-xs sqlfailbtn" style="float:right;" ckvalue="{{sql.executerz}}">详情</button> </td>
+                              <td> <img src="/static/imgs/images/sqlmanage/excutefail.png"> <span> 执行失败</span>
+                                  <button class="btn btn-info btn-xs sqlfailbtn" style="float:right;" ckvalue="{{sql.executerz}}">详情</button> </td>
                           {% endif %}
                           <!-- 备注 -->
                           {% if sql.note %}

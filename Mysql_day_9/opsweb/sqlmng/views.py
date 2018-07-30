@@ -42,7 +42,8 @@ class inception_commit(TemplateView):
         webdata['commiter'] = username
         # webdata['treater'] = username
         sqlobj = InceptSql.objects.create(**webdata)
-        treaterobj = User.objects.get_or_create(username=webdata['treater'])[0]
+        # 获取执行人信息 例如xiaosong2 经理，总监级别
+        treaterobj = User.objects.get_or_create(username=webdata['treater'])[0]  # 获取的执行人，是经理， 总监权限
         sqlobj.sqlusers.add(userobj, treaterobj)  # 提交人,执行人
         print sql_review     # 审核通过后，最后CHECK检测所有结果
         return JsonResponse({'status': 0})
@@ -71,6 +72,7 @@ class dbconfig(View):
 
 '''
 
+# 修改数据库配置表单
 class dbconfig(ListView):
     model = dbconf
     template_name = 'sqlmng/dbconfig.html'
@@ -108,6 +110,7 @@ class dbconfig(ListView):
         return JsonResponse({'status': 0})
 
 
+# 选中测试环境和生产环境 JS执行获取
 class autoselect(View):
     def post(self, request):
         webdata = QueryDict(request.body).dict()
@@ -136,6 +139,7 @@ class autoselect(View):
         return JsonResponse({'status': 0, 'dbs': dbs, 'mngs': mngs})
 
 
+# Sql 审核后需要上线的列表,  处理表单
 class inception_result(ListView):
     template_name = 'sqlmng/inception_result.html'
     paginate_by = 10
@@ -171,7 +175,6 @@ class inception_result(ListView):
             dbaddr = '--user=%s; --password=%s; --host=%s; --port=%s; --enable-execute' % (
             dbobj.user, dbobj.password, dbobj.host, dbobj.port)
             exerz = inception.table_structure(dbaddr, dbobj.name, sqlcontent)  # 在这一步，已经执行完了
-            print exerz
             affected_rows = 0
             exe_time = 0
             opidlist = []
@@ -227,7 +230,7 @@ class inception_result(ListView):
             dbobj.user, dbobj.password, dbobj.host, dbobj.port)
             exerz = inception.table_structure(dbaddr, dbobj.name, backsqls)
             # 后期更改更改回滚状态显示
-            # sqlobj.status = -3
+            sqlobj.status = -3
             # roll_affected_rows = len(exerz) - 1
             # dbobj.roll_affected_rows = roll_affected_rows
             # ret['rollnum'] = roll_affected_rows    # 执行回滚语句的结果，除去第一个USE 数据库的

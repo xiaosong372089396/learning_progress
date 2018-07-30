@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -\*-coding: utf-8-\*-
 
 import MySQLdb
@@ -11,11 +11,11 @@ def table_structure(dbaddr, dbname, mysql_structure):
     use %s; %s inception_magic_commit;' % (dbaddr, dbname, mysql_structure)
     # use inc_test; %s inception_magic_commit;' % mysql_structure
     try:
-        conn=MySQLdb.connect(host='192.168.10.73', user='', passwd='', db='', port=6669, use_unicode=True, charset="utf8")  # inception的地址、端口等
+        conn=MySQLdb.connect(host='192.168.83.220', user='', passwd='', db='', port=6669, use_unicode=True, charset="utf8")  # inception的地址、端口等
         cur=conn.cursor()
         cur.execute(sql)
         result=cur.fetchall()
-        # print result
+        # print result,"22222"
         cur.close()
         conn.close()
     except MySQLdb.Error,e:
@@ -23,7 +23,7 @@ def table_structure(dbaddr, dbname, mysql_structure):
     return result
 
 def getbak(sql, dbname=''):
-    conn = MySQLdb.connect(host='192.168.10.73', port=3306, user='root', passwd='123.com', db=dbname, charset='utf8')
+    conn = MySQLdb.connect(host='192.168.83.220', port=3306, user='xiaosong', passwd='123456', db=dbname, charset='utf8')
     conn.autocommit(True)
     cur = conn.cursor()
     cur.execute(sql)

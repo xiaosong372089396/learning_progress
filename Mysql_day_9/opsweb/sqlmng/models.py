@@ -57,3 +57,4 @@ class dbconf(Basemodel):
     host = models.CharField(max_length=16)
     port = models.CharField(max_length=5)
     env = models.CharField(max_length=1, blank=True, null=True, choices=GENDER_CHOICES)
+    
